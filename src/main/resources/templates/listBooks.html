@@ -1,4 +1,4 @@
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <title>Books Homepage - Welcome to My Book Store</title>
@@ -16,11 +16,11 @@
 <main>
   <h2>Choose book:</h2>
 
-  <form th:method="POST" th:action="@{/chooseAuthor}">
+  <form th:method="post" th:action="@{/listBooks}">
 
-  <div th:each="book: ${books}">
-    <input type="radio" th:text="${book.getTitle()}" name="bookIsbn" th:value="${book.getIsbn}">  <br/>
-  </div>
+  <ul th:each="book: ${books}">
+    <input type="radio" th:text="${book.getTitle()}" th:name="bookIsbn" th:value="${book.getIsbn()}">  <br/>
+  </ul>
 
   <input type='submit' value='Submit'>
   </form>
