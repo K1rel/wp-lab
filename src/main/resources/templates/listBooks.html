@@ -16,7 +16,7 @@
 <main>
   <h2>Choose book:</h2>
 
-  <form th:method="post" th:action="@{/listBooks}">
+  <form th:method="get" th:action="@{/author}">
 
   <ul th:each="book: ${books}">
     <h3 th:text="'Достапно во ' + ${book.getBookStore().getName()} + ':'"></h3>
@@ -28,6 +28,7 @@
 
   <input type='submit' value='Submit'>
   </form>
+  <a th:href="@{/books/add}">Add new book</a>
 </main>
 </body>
 </html>

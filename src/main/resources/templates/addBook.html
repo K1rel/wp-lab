@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<form th:action="@{/books/save}" th:object="${book}" method="post">
+<form th:action="@{/books/add}" th:object="${book}" method="post">
     <div>
         <label>Book ISBN: </label> <br>
         <input th:field="*{isbn}" placeholder="Book ISBN">
@@ -25,8 +25,8 @@
 
     <div>
         <label>Select book store: </label> <br>
-        <select th:field="*{bookStoreId}">
-            <option th:each="store : ${bookStores}" th:value="${store.id}" th:text="${store.name}"></option>
+        <select th:name="bookStoreId">
+            <option th:each="store  : ${bookStores}" th:value="${store.getId()}" th:text="${store.getName()}"  ></option>
         </select>
     </div>
 
