@@ -21,8 +21,8 @@
   <ul th:each="book: ${books}">
     <h3 th:text="'Достапно во ' + ${book.getBookStore().getName()} + ':'"></h3>
     <input type="radio" th:text="${book.getTitle()}" th:name="bookIsbn" th:value="${book.getIsbn()}">
-    <a th:href="@{/books/edit-book/{id}(id=${book.getId()})}">Edit</a>
-    <a th:href="@{/books/delete-book/{id}(id=${book.getId()})}">Delete</a>
+    <a th:href="@{/books/edit/{id}(id=${book.getId()})}">Edit</a>
+    <a th:href="@{/books/delete/{id}(id=${book.getId()})}">Delete</a>
     <br/>
   </ul>
 

@@ -6,10 +6,7 @@ import mk.ukim.mk.lab.service.AuthorService;
 import mk.ukim.mk.lab.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,7 +18,7 @@ public class BookController {
 
     public BookController(BookService bookService, AuthorService authorService) {
         this.bookService = bookService;
-        this.authorService = authorService;
+
     }
 
     @GetMapping
@@ -33,7 +30,7 @@ public class BookController {
         return "listBooks";
     }
 
-    @GetMapping("/edit-book/{id}")
+    @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model){
        Book book =  bookService.findBookById(id);
        if(book == null){
@@ -41,7 +38,17 @@ public class BookController {
        }
 
           model.addAttribute("book",book);
-          return "addBook";
+          return "editBook";
+    }
+
+    @PostMapping("/edit")
+    public String edit(@RequestParam String isbn,@RequestParam String title,@RequestParam String genre,@RequestParam String year){
+        Book book = bookService.findBookByIsbn(isbn);
+        book.setTitle(title);
+        book.setGenre(genre);
+        book.setYear(Integer.parseInt(year));
+
+        return "redirect:/books";
     }
 
 }
