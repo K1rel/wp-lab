@@ -3,25 +3,30 @@ package mk.ukim.mk.lab.model;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Random;
 
 @Data
 public class Book {
+    private Long id;
     private String isbn;
     private String title;
     private String genre;
     private int year;
     List<Author> authors;
+    private BookStore  bookStore;
 
     public Book() {
 
     }
 
-    public Book(String isbn, String title, String genre, int year, List<Author> authors) {
+    public Book(String isbn, String title, String genre, int year, List<Author> authors,BookStore bookStore) {
+        this.id = new Random().nextLong(10000) + 1;
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;
         this.year = year;
         this.authors = authors;
+        this.bookStore = bookStore;
     }
 
     public String getIsbn() {

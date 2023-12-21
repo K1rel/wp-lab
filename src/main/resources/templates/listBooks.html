@@ -19,7 +19,11 @@
   <form th:method="post" th:action="@{/listBooks}">
 
   <ul th:each="book: ${books}">
-    <input type="radio" th:text="${book.getTitle()}" th:name="bookIsbn" th:value="${book.getIsbn()}">  <br/>
+    <h3 th:text="'Достапно во ' + ${book.getBookStore().getName()} + ':'"></h3>
+    <input type="radio" th:text="${book.getTitle()}" th:name="bookIsbn" th:value="${book.getIsbn()}">
+    <a th:href="@{/books/edit-book/{id}(id=${book.getId()})}">Edit</a>
+    <a th:href="@{/books/delete-book/{id}(id=${book.getId()})}">Delete</a>
+    <br/>
   </ul>
 
   <input type='submit' value='Submit'>
