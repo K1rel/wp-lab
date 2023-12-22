@@ -29,19 +29,20 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Author addAuthorToBook(Long authorId, String isbn) {
+    public void addAuthorToBook(Long authorId, String isbn) {
         Author avtorot = authorRepository.findById(authorId).orElse(null);
-        Book knigata = bookRepository.findByIsbn(isbn).orElse(null);
-        return bookRepository.addAuthorToBook(avtorot,knigata);
+        Book knigata = bookRepository.findBookByIsbn(isbn).orElse(null);
+        knigata.getAuthors().add(avtorot);
+        bookRepository.save(knigata);
     }
 
     @Override
     public Book findBookByIsbn(String isbn) {
-        return bookRepository.findByIsbn(isbn).orElse(null);
+        return bookRepository.findBookByIsbn(isbn).orElse(null);
     }
 
     @Override
     public Book findBookById(Long id) {
-        return bookRepository.findById(id);
+        return bookRepository.findById(id).orElse(null);
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BookService {
     List<Book> listBooks();
-    Author addAuthorToBook(Long authorId, String isbn);
+    void addAuthorToBook(Long authorId, String isbn);
     Book findBookByIsbn(String isbn);
     Book findBookById(Long id);
 }

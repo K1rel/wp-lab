@@ -1,18 +1,25 @@
 package mk.ukim.mk.lab.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
 import java.util.Random;
 
 @Data
+@Entity
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String isbn;
     private String title;
     private String genre;
     private int year;
+
+    @OneToMany
     List<Author> authors;
+    @ManyToOne
     private BookStore  bookStore;
 
     public Book() {
