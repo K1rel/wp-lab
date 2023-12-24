@@ -9,6 +9,7 @@ import java.util.Random;
 
 @Data
 @Entity
+
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +22,7 @@ public class Review {
     private LocalDateTime timestamp;
 
     public Review(Integer score, String description, Book book, LocalDateTime timestamp) {
-        this.id = new Random().nextLong(0,10000) + 1;
+
         this.score = score;
         this.description = description;
         this.book = book;

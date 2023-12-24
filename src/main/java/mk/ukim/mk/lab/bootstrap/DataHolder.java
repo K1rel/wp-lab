@@ -4,6 +4,9 @@ import jakarta.annotation.PostConstruct;
 import mk.ukim.mk.lab.model.Author;
 import mk.ukim.mk.lab.model.Book;
 import mk.ukim.mk.lab.model.BookStore;
+import mk.ukim.mk.lab.service.AuthorService;
+import mk.ukim.mk.lab.service.BookService;
+import mk.ukim.mk.lab.service.BookStoreService;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,13 +16,25 @@ import java.util.List;
 @Component
 public class DataHolder {
 
-    public static List<Author> authors= new ArrayList<>();
-    public static List<Book> books = new ArrayList<>();
-    public static List<BookStore> bookStores = new ArrayList<>();
+    public static List<Author> authors= null;
+    public static List<Book> books = null;
+    public static List<BookStore> bookStores = null;
+    public final BookService bookService;
+    public final AuthorService authorService;
+    public final BookStoreService bookStoreService;
+
+    public DataHolder(BookService bookService, AuthorService authorService, BookStoreService bookStoreService) {
+        this.bookService = bookService;
+        this.authorService = authorService;
+        this.bookStoreService = bookStoreService;
+    }
 
     @PostConstruct
     public void init(){
         System.out.println("Initializing data in DataHolder...");
+        authors= new ArrayList<>();
+        books = new ArrayList<>();
+        bookStores = new ArrayList<>();
         authors.add(new Author(1L, "John", "Doe", "Biography of John Doe"));
         authors.add(new Author(2L, "Jane", "Smith", "Biography of Jane Smith"));
         authors.add(new Author(3L, "Bob", "Johnson", "Biography of Bob Johnson"));
@@ -45,6 +60,10 @@ public class DataHolder {
         books.add(book3);
         books.add(book4);
         books.add(book5);
+
+        bookStoreService.transferDataToDatabase();
+        authorService.transferDataToDatabase();
+        bookService.transferDataToDatabase();
     }
 
 }

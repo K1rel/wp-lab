@@ -8,6 +8,7 @@ import java.util.Random;
 
 @Data
 @Entity
+@Table(name = "BOOK")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,9 +16,10 @@ public class Book {
     private String isbn;
     private String title;
     private String genre;
+    @Column(name = "\"year\"")
     private int year;
 
-    @OneToMany
+   @ManyToMany
     List<Author> authors;
     @ManyToOne
     private BookStore  bookStore;
@@ -27,7 +29,7 @@ public class Book {
     }
 
     public Book(String isbn, String title, String genre, int year, List<Author> authors,BookStore bookStore) {
-        this.id = new Random().nextLong(10000) + 1;
+
         this.isbn = isbn;
         this.title = title;
         this.genre = genre;

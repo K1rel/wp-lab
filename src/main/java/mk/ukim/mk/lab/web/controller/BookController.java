@@ -27,10 +27,13 @@ public class BookController {
 
         this.bookStoreService = bookStoreService;
         this.authorService = authorService1;
+
     }
 
     @GetMapping
     public String getBooksPage(@RequestParam(required = false) String error, Model model){
+
+
         List<Book> books = bookService.listBooks();
         model.addAttribute("books",books);
         model.addAttribute("error",error);
@@ -55,13 +58,13 @@ public class BookController {
         book.setTitle(title);
         book.setGenre(genre);
         book.setYear(Integer.parseInt(year));
-
+        bookService.addBook(book);
         return "redirect:/books";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id,Model model){
-        bookService.listBooks().remove(bookService.findBookById(id));
+        bookService.deleteBook(bookService.findBookById(id));
         model.addAttribute("books",bookService.listBooks());
 
         return "redirect:/books";
@@ -83,10 +86,14 @@ public class BookController {
         avtori.add(authorService.listAuthors().get(random.nextInt(authorService.listAuthors().size())));
         Book book = new Book(isbn,title,genre,year,avtori,bookStoreService.findAll().stream().filter(i->i.getId().equals(bookStoreId)).findFirst().orElse(null));
         bookService.listBooks().add(book);
+        bookService.addBook(book);
         model.addAttribute("books",bookService.listBooks());
 
         return "listBooks";
 
     }
+
+
+
 
 }

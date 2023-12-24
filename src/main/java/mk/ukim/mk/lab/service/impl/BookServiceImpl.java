@@ -1,6 +1,7 @@
 package mk.ukim.mk.lab.service.impl;
 
 
+import mk.ukim.mk.lab.bootstrap.DataHolder;
 import mk.ukim.mk.lab.model.Author;
 import mk.ukim.mk.lab.model.Book;
 import mk.ukim.mk.lab.repository.AuthorRepository;
@@ -36,6 +37,8 @@ public class BookServiceImpl implements BookService {
         bookRepository.save(knigata);
     }
 
+
+
     @Override
     public Book findBookByIsbn(String isbn) {
         return bookRepository.findBookByIsbn(isbn).orElse(null);
@@ -45,4 +48,33 @@ public class BookServiceImpl implements BookService {
     public Book findBookById(Long id) {
         return bookRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public void transferDataToDatabase() {
+         List<Book> books = DataHolder.books;
+           for(Book dhBook : books){
+               Book book = new Book();
+               book.setTitle(dhBook.getTitle());
+               book.setIsbn(dhBook.getIsbn());
+               book.setGenre(dhBook.getGenre());
+               book.setYear(dhBook.getYear());
+               book.setAuthors(dhBook.getAuthors());
+               book.setBookStore(dhBook.getBookStore());
+
+            bookRepository.save(book);
+           }
+
+    }
+
+    @Override
+    public void addBook(Book book) {
+        bookRepository.save(book);
+    }
+
+    @Override
+    public void deleteBook(Book book) {
+        bookRepository.delete(book);
+    }
+
+
 }

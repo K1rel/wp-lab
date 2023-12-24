@@ -36,6 +36,7 @@ public class AuthorController {
 
         bookService.findBookByIsbn(bookIsbn).getAuthors().add(authorService.findById(Long.valueOf(authorId)));
 
+        bookService.addBook(bookService.findBookByIsbn(bookIsbn));
         model.addAttribute("book",bookService.findBookByIsbn(bookIsbn));
 
         return "bookDetails";

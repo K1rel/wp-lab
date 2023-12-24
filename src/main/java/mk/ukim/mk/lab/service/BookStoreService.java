@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface BookStoreService {
     public List<BookStore> findAll();
+    void transferDataToDatabase();
 }

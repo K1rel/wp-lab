@@ -10,4 +10,8 @@ public interface BookService {
     void addAuthorToBook(Long authorId, String isbn);
     Book findBookByIsbn(String isbn);
     Book findBookById(Long id);
+
+    void transferDataToDatabase();
+    void addBook(Book book);
+    void deleteBook(Book book);
 }

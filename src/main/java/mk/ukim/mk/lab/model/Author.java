@@ -1,17 +1,16 @@
 package mk.ukim.mk.lab.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
+
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +19,8 @@ public class Author {
     private String surname;
     private String biography;
     private LocalDate dateOfBirth;
+    @ManyToMany
+private List<Book> book;
 
     public Author() {
     }
