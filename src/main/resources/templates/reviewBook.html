@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Review editor</title>
+</head>
+<body>
+<form th:action="@{'/books/review/' + ${book.getId()}}" method="post">
+  <label for="score">Score:</label>
+  <input id="score" name="score" type="number" min="0" max="10"><br>
+  <label for="description">Description:</label>
+  <input id="description" name="description" type="text"><br>
+  <label for="reviewDate">Date:</label>
+  <input id="reviewDate" name="reviewDate" type="datetime-local"><br>
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>

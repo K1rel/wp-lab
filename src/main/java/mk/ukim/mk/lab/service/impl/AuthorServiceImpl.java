@@ -34,8 +34,7 @@ public class AuthorServiceImpl implements AuthorService {
         List<Author> authors = DataHolder.authors;
         for(Author dhAuthor : authors){
             Author author = new Author();
-            author.setName(dhAuthor.getName());
-            author.setSurname(dhAuthor.getSurname());
+            author.setFullName(dhAuthor.getFullName());
             author.setBiography(dhAuthor.getBiography());
             author.setDateOfBirth(dhAuthor.getDateOfBirth());
             author.setBook(dhAuthor.getBook());

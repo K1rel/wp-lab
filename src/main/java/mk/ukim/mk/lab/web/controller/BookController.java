@@ -3,13 +3,17 @@ package mk.ukim.mk.lab.web.controller;
 
 import mk.ukim.mk.lab.model.Author;
 import mk.ukim.mk.lab.model.Book;
+import mk.ukim.mk.lab.model.Review;
+import mk.ukim.mk.lab.repository.ReviewRepository;
 import mk.ukim.mk.lab.service.AuthorService;
 import mk.ukim.mk.lab.service.BookService;
 import mk.ukim.mk.lab.service.BookStoreService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -21,13 +25,16 @@ public class BookController {
     private final BookStoreService bookStoreService;
     private final AuthorService authorService;
 
+    private final ReviewRepository reviewRepository;
 
-    public BookController(BookService bookService, AuthorService authorService, BookStoreService bookStoreService, AuthorService authorService1) {
+
+    public BookController(BookService bookService, AuthorService authorService, BookStoreService bookStoreService, AuthorService authorService1, ReviewRepository reviewRepository) {
         this.bookService = bookService;
 
         this.bookStoreService = bookStoreService;
         this.authorService = authorService1;
 
+        this.reviewRepository = reviewRepository;
     }
 
     @GetMapping
@@ -89,6 +96,32 @@ public class BookController {
         bookService.addBook(book);
         model.addAttribute("books",bookService.listBooks());
 
+        return "listBooks";
+
+    }
+
+    @GetMapping("/review/{id}")
+    public String review(@PathVariable Long id,Model model){
+        Book kniga = bookService.findBookById(id);
+        model.addAttribute("book",kniga);
+
+        return "reviewBook";
+    }
+
+    @PostMapping("/review/{id}")
+    public String review(@PathVariable Long id, @RequestParam int score, @RequestParam String description,
+                         @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime reviewDate,Model model){
+        Book kniga = bookService.findBookById(id);
+        Review review = new Review();
+        review.setDescription(description);
+        review.setScore(score);
+        review.setTimestamp(reviewDate);
+        review.setBook(kniga);
+        kniga.getReviews().add(review);
+        bookService.addBook(kniga);
+        reviewRepository.save(review);
+        bookService.listBooks().add(kniga);
+        model.addAttribute("books",bookService.listBooks());
         return "listBooks";
 
     }

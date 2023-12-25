@@ -23,7 +23,12 @@
     <input type="radio" th:text="${book.getTitle()}" th:name="bookIsbn" th:value="${book.getIsbn()}">
     <a th:href="@{/books/edit/{id}(id=${book.getId()})}">Edit</a>
     <a th:href="@{/books/delete/{id}(id=${book.getId()})}">Delete</a>
+    <a th:href="@{/books/review/{id}(id=${book.getId()})}">Add Review</a>
     <br/>
+    <ul>
+      <li th:each="review: ${book.getReviews()}" th:text="'Score: ' + ${review.getScore()} + ', Description: ' + ${review.getDescription()} + ', Timestamp: '
+      + ${#temporals.format(review.getTimestamp(), 'yyyy-MM-dd HH:mm:ss')}"></li>
+    </ul>
   </ul>
 
   <input type='submit' value='Submit'>

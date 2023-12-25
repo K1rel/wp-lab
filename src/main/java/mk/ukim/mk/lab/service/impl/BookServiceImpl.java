@@ -8,6 +8,7 @@ import mk.ukim.mk.lab.repository.AuthorRepository;
 import mk.ukim.mk.lab.repository.BookRepository;
 import mk.ukim.mk.lab.service.BookService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -65,6 +66,7 @@ public class BookServiceImpl implements BookService {
            }
 
     }
+
 
     @Override
     public void addBook(Book book) {

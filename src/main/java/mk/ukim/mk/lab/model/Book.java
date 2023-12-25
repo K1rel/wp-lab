@@ -24,6 +24,10 @@ public class Book {
     @ManyToOne
     private BookStore  bookStore;
 
+
+    @OneToMany(mappedBy = "book")
+    List<Review> reviews;
+
     public Book() {
 
     }

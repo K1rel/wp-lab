@@ -17,7 +17,9 @@ public class Review {
     private Integer score;
     private String description;
 
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "book_id")
     private Book book;
     private LocalDateTime timestamp;
 
